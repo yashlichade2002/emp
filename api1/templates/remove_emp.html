@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Remove Employee</title>
+  </head>
+  <body>
+	  <div class=*container*>
+		  <h1>You can Remove Data</h1>
+		  <hr>
+		  <div class="dropdown">
+  <button class="btn btn-primmary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Selcet Employees
+  </button>
+  <ul class="dropdown-menu">
+		{% for emp in emps %}
+		<li><a class="dropdown-item" href="/remove_emp/{{emp.id}}">{{emp.first_name}} {{emp.last_name}}</a></li>
+    		{% endfor %}
+  </ul>
+</div>
+  </body>
+</html>
