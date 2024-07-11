@@ -1,6 +1,8 @@
 from django.shortcuts import render,HttpResponse
+import json
 from .models import Employee,Role,Department
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 # Create your views here.
 def index(request):
@@ -13,16 +15,17 @@ def all_emp(request):
             }
     print(context)
     return render(request, 'all_emp.html',context)
-
+@csrf_exempt
 def add_emp(request):
     if request.method =='POST':
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        salary = request.POST['salary']
-        bonus = request.POST['bonus']
-        phone = request.POST['phone']
-        dept = request.POST['dept']
-        role = request.POST['role']
+        req=(json.loads(request.body.decode("UTF-8")))
+        first_name = req['first_name']
+        last_name = req['last_name']
+        salary = req['salary']
+        bonus = req['bonus']
+        phone = req['phone']
+        dept = req['dept']
+        role = req['role']
         new_emp = Employee(first_name= first_name,last_name = last_name,salary= salary,bonus= bonus ,phone= phone,dept_id= dept,role_id= role,hire_date= datetime.now())
         new_emp.save()
         return HttpResponse('new employee')
